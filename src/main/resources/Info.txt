@@ -1,0 +1,23 @@
+Info.txt
+
+
+롬북 (lombok) - DTO : client 에서 자바의 객체(DTO) ==> DB Table 
+		      DB Table ==> DTO  ==> Client View 
+      - DTO 생성 : 
+	1. DataBase 의 테이블의 컬럼명과 동일한 자료형, 변수 (private)
+	=================================================
+	2. 기본생성자 생성 
+	3. getter(필드의 값을 가지고오는), setter(필드의 값을 셋팅) 생성
+	4. toString 재정의 : 객체 자체를 프린트했을때 객체의 필드의 내용을 확인
+
+
+
+https://projectlombok.org/download
+1. 다운로드 
+2. 이클립스 가 부팅 할때 (SpringToolSuite4.ini) 파일에 lombok 가 등록 되어야 작동됨 
+	설치가 필요함 
+	다운로드한 폴더로 이동후 아래 명령어 실행 
+	java -jar lombok.jar 
+===================================================
+3. 라이브러리 추가 
+

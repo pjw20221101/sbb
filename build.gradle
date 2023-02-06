@@ -1,0 +1,29 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.2'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.mysite'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// devtools : 수정 변경시 자동으로 톰켓을 restart (중지 => 시작) : 자동으로 컴파일 
+	// development : 실제 서비스로 빌드 할때는 빌드 되지 않도록 설정 , 개발시에만 필요함. 
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	//lombok 라이브러리 등록 
+	compileOnly 'org.projectlombok:lombok'            //컴파일 단계에서만 필요한 경우에 사용됨
+	annotationProcessor 'org.projectlombok:lombok'	  //컴파일 단계에서 어노테이션을 분석 처리함 
+	
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
