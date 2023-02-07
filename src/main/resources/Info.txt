@@ -21,3 +21,98 @@ https://projectlombok.org/download
 ===================================================
 3. 라이브러리 추가 
 
+===============================================
+
+
+
+
+실습 : 
+   - 새로운 프로잭트 생성후 서버 포트 변경 
+   - @Controller 어너테이션 을 사용해서 @GetMapping ("/hello") 요청시 메소드 출력 @ResponseBody
+   - Lombok의 어노테이션 사용. 
+   		- @Getter, @Setter, @toString, @noArgContructor, @allArgContructor, 
+   		- @RequredArgContructor 사용 
+   - devTools 를 사용하여 수정시 자동 반영 
+
+========================================================================
+JPA 사용을 위한 환경 구성 
+1. H2 DataBase : 테스트 환경에서 많이 사용. ==> Oracle (서비스 환경) 
+    - 라이브러리 추가 : build.gradle 
+    	runtimeOnly 'com.h2database:h2'
+    - db 연결 설정 : application.properties 
+    	spring.h2.console.enabled=true
+		spring.h2.console.path=/h2-console
+		spring.datasource.url=jdbc:h2:~/local	
+		spring.datasource.driverClassName=org.h2.Driver
+		spring.datasource.username=sa
+		spring.datasource.password=
+	- H2 DataBase 파일을 생성 : ~ : 로그온한 계정의 홈폴더( c:\users\hi )
+		~/local.mv.db       <== H2 데이터 베이스의 DataBase 파일 
+			cd ~ 
+			touch local.mv.db 
+			
+	- H2 DataBase 접속 : 프로잭트 시작  크롬 URL : http://localhost:9292/h2-console/
+	
+2. JPA 환경 설정 	
+   
+   - 의존성 라이브러리 추가 : build.gradle 	
+   		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+   - JPA 설정 : application.properties
+   		# JPA( JPA는 H2 DB와 연결 설정, 변경사항만 업데이트됨 ) 
+		spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+		spring.jpa.hibernate.ddl-auto=update	# 주의 요함 : 운영환경에서는 none, validate
+			# none : 엔티티(자바의 dto)가 변경되더라도 데이터베이스를 변경하지 않도록 설정
+			# update : 엔티티 변경된 부분만 데이타베이스에 적용됨
+			# validate : 변경사항이 있는지 확인만 함
+			# create : 스프링 부트가 작동될때 DB의 테이블을 Drop 하고 다시 생성 함. 
+			# create-drop : create와 동일함. 스프링 부트가 종료될때 테이블을 삭제함. (drop) 
+
+2. 엔티티 클래스 작성 : @Entity 어노테이션이 붙은 자바 클래스 
+	엔티티 : 데이타베이스 테이블과 매핑되는 자바 클래스 <== DTO 의 클래스 이름이 테이블명과 매핑 , 
+		dto의 필드명은 테이블의 컬럼명과 매핑된 	
+		
+		-- Question.java	: 부모
+		-- Answer.java		: 자식  
+		
+JPA는 DB의 테이블 컬럼이 수정, 생성, 삭제 가 빈번하게 발생시 유지 보수를 아주 쉽게 할 수 있다. 
+   - JPA를 사용하지 않는경우  DB의 테이블이 수정이발생시 dto, dao (insert, update, delete, get, getList)			
+   - 단점 : 테이블이 복잡한 조인으로 연결된 경우나, 복잡한 계산을 처리하는 환경에서는 적합하지 않다. 
+                 ( MyBatis : 유지 보수도 쉽게 하고, 복잡한 계산처리도 가능 ) 			
+
+3. 레포지토리(Repository) 클래스  :  DAO : 자바 클래스의 JPA 메소드를 사용해서 
+		SQL의 CRUD ( Insert, Select, Update, delete) 
+    - JPA를 사용해서 DB를 CRUD 할려면 Repository 인터페이스를 생성해야 한다. 
+    - JpaRepository 를 상속해서 만들어야 한다. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

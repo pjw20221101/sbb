@@ -21,7 +21,10 @@ dependencies {
 	//lombok 라이브러리 등록 
 	compileOnly 'org.projectlombok:lombok'            //컴파일 단계에서만 필요한 경우에 사용됨
 	annotationProcessor 'org.projectlombok:lombok'	  //컴파일 단계에서 어노테이션을 분석 처리함 
-	
+	//H2 라이브러리 
+	runtimeOnly 'com.h2database:h2'			//실행시에만 작동 , 테스트 환경
+	//JPA 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 tasks.named('test') {
