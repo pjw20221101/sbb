@@ -83,6 +83,62 @@ JPA는 DB의 테이블 컬럼이 수정, 생성, 삭제 가 빈번하게 발생�
 		SQL의 CRUD ( Insert, Select, Update, delete) 
     - JPA를 사용해서 DB를 CRUD 할려면 Repository 인터페이스를 생성해야 한다. 
     - JpaRepository 를 상속해서 만들어야 한다. 
+    
+ 
+ 
+ 실습 : sbb2 프로잭트에서 진행하세요. H2 DataBase를 사용 하세요.  
+     JPA Entity 클래스 실습, JPA 메소드를 사용해서 CRUD , save(), findAll(), 
+ 
+ 아래 내용의 JPA Entity 클래스를 생성 하세요. 
+ 테이블명 : user
+      idx   primary key, 자동증가(1,1) 
+      name  varchar(100) 
+      pass  varchar(100) 
+      email varchar(200) 
+      regdate LoacalDateTime 
+      cnt	int 
+      
+ --임의의  값을 5개 insert 
+ --넣은 값을 regdate 컬럼을 기준으로 내림차순( Desc ) 정렬 
+ -- idx 3 번의 name 과 email 주소를 수정 
+ -- idx 4 번의 값을 삭제 
+ 
+ sbb2프로잭트 폴더 압축 : 조명_이름.zip 
+ 업로드 URL : https://url.kr/u86s1c
+      
+      
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 

@@ -23,9 +23,10 @@ public class Answer {
 	@Column(columnDefinition ="TEXT")
 	private String content; 
 	
-	private LocalDateTime createDate; 
+	private LocalDateTime createDate; 	//create_date
 	
 	@ManyToOne			//Foreign Key : 부모테이블의 PK, UK컬럼의 값을 참조해서 값을 할당. 
-	private Question question;    //부모테이블이 Question 테이블의 Primary Key 를 참조 (id) 
+	private Question question;    //부모테이블이 Question 테이블의 Primary Key 를 참조 (id)
+						//question_id
 	
 }

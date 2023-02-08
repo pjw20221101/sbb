@@ -6,6 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	//JPA에서 Question 테이블을 Select, Insert, update, delete 
+	// JPA의 CRUD 메소드 : 
+			// save() : Insert, Update
+			// delete() : delete 
+			// findAll() 
+			// findById ()
+			// 정의해서 사용 : findBySubject() .....
+	
 	// Question 테이블을 SQL 쿼리를 사용하지 않고 JPA 메소드를 사용해서  CRUD 하는 Repository 
 		//JpaRepository<Question, Integer>
 				//Question : JPA 메소드에서 쿼리할 엔티티 클래스 
@@ -30,11 +37,21 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	//select * from question where subject like '%sbb%' or content like '%내용%'
 	List<Question> findBySubjectLikeOrContentLike (String subject, String content); 
 	
-	//정렬 해서 출력 : Order By 
-	//select * from question order by createDate asc 	: 오름 차순 정렬
-	//select * from question order by createDate desc 	: 내림 차순 정렬 
+	//조건을 사용해서 출력후 정렬 해서 출력 : Order By 
+	//select * from question where subject = ? order by createDate asc 	: 오름 차순 정렬
+	//select * from question where subject = ? order by createDate desc 	: 내림 차순 정렬 
 	List<Question> findBySubjectLikeOrderByCreateDateAsc(String subject);
 	List<Question> findBySubjectLikeOrderByCreateDateDesc(String subject);
+	
+	//모든 레코드를 정렬 해서 출력 
+	// Select * from question order by create_date asc 
+	// Select * from question order by create_date desc
+	List <Question> findAllByOrderByCreateDateAsc(); 
+	List <Question> findAllByOrderByCreateDateDesc();
+	
+	//Update : save() 
+	
+	//Delete : delete()
 	
 	
 }
