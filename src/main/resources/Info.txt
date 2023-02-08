@@ -90,7 +90,7 @@ JPA는 DB의 테이블 컬럼이 수정, 생성, 삭제 가 빈번하게 발생�
      JPA Entity 클래스 실습, JPA 메소드를 사용해서 CRUD , save(), findAll(), 
  
  아래 내용의 JPA Entity 클래스를 생성 하세요. 
- 테이블명 : user
+ 테이블명 : users							<== user 는 예약어 
       idx   primary key, 자동증가(1,1) 
       name  varchar(100) 
       pass  varchar(100) 
