@@ -1,7 +1,9 @@
-package com.mysite.sbb;
+package com.mysite.sbb.question;
 
 import java.time.LocalDateTime;   //자신의 시스템의 로케일의 시간설정 
 import java.util.List;
+
+import com.mysite.sbb.answer.Answer;
 
 import jakarta.persistence.CascadeType; 
 

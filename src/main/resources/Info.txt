@@ -106,10 +106,34 @@ JPA는 DB의 테이블 컬럼이 수정, 생성, 삭제 가 빈번하게 발생�
  sbb2프로잭트 폴더 압축 : 조명_이름.zip 
  업로드 URL : https://url.kr/u86s1c
       
-      
+====================================================
+Transaction (트랜잭션) : 일(작업) 을 처리하는 최소단위
+   - 트랜잭션이 시작되면 트랜잭션 완료까지 Lock 이 걸림.  
+   - 트랜잭션이 발생되면 SQL Log 에 모두 기록이됨. 
+   - DML 문에서 트랜 잭션이 발생 , ( Insert, Update, Delete )
+   - 트랜잭션이 발생되고 commit 되지 전까지는 RAM에만 적용 
+   - rollback ( 트랜잭션 발생시점으로 되돌림), 
+   - commit ( DB 영구적으로 적용)  ;  
+   - Oracle  Insert, Update, Delete 구문이 발생되면 자동으로 트랜잭션 시작
+	commit ; 
+   - MSSQL, MySQL  : 자동 커밋 트랜잭션  (Statement, preparedStatement)
+   - 백업 시점이 아니라 오류가 발생된 시점으로 되돌릴 수 있다. 
+   - All or Nothing :  되면 전부 완료 되게 하거나 아니면 원점으로 되돌려 줘야한다.   
+ ========================================================
+ 
+ <실습> 
+ 프로잭트 : sbb2  
+   -users 테이블에 저장된 레코드를 View Page 에서 출력 
+   
+   usersRepository 를 Controller에서 생성자 주입 
+   
+   client 요청 : http://localhost:0000/user_list
+   view page : users_list.html 
  
  
  
+   sbb2프로잭트 폴더 압축 : 조명_이름.zip 
+   업로드 URL : https://url.kr/u86s1c
  
  
  

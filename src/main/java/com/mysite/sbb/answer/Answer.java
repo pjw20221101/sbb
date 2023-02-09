@@ -1,6 +1,8 @@
-package com.mysite.sbb;
+package com.mysite.sbb.answer;
 
 import java.time.LocalDateTime;
+
+import com.mysite.sbb.question.Question;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,8 +13,8 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @Entity		// JPA에서 자바객체를 DB의 테이블에 매핑 
 public class Answer {
 	
