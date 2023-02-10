@@ -25,6 +25,46 @@ class SbbApplicationTests {
 	@Autowired	//객체 자동 주입 (DI) , JPA의 메소드를 사용, findAll() , findById(), save(), delete()
 	private AnswerRepository answerRepository; 
 	
+	/* Answer 테이블에 더미 데이터 입력  */ 
+	
+	@Test 
+	public void insertAnswer() {
+		Question q = new Question(); 
+		Answer a = new Answer(); 
+		
+		//Question 객체 질문에대한 값을 가지고 와서 answer question필드에 넣어준다. 
+		Optional<Question> op = 
+				this.questionRepository.findById(2);
+		q = op.get(); 
+		
+		
+		a.setContent("2 글에대한 답변 입니다. - 3 " );
+		a.setCreateDate(LocalDateTime.now());
+		a.setQuestion(q);
+		
+		this.answerRepository.save(a); 
+	}
+	
+	
+	/* question 테이블에 for 문을 사용해서 더미값 1000개 insert 
+	@Test 
+	public void insert1000() {
+		Question q = null; 
+		
+		//for 문을 사용해서 레코드 1000 개 insert 
+		for ( int i = 1 ; i <= 1000; i++) {
+			q = new Question();
+			q.setSubject("제목 - " + i);
+			q.setContent("내용 - " + i);
+			q.setCreateDate(LocalDateTime.now());
+			
+			this.questionRepository.save(q); 	
+		}		
+	}
+	
+	*/ 
+	
+	
 	
 	/* 하나의 질문에 여러개의 답변 찾기  
 

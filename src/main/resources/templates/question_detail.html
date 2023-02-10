@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상세 페이지 </title>
+
+<link rel="stylesheet" type ="text/css" th:href="@{/style.css}">
+
+</head>
+<body>
+
+<h1 th:text = "${question.subject}"> 제목 </h1>
+<div th:text = "${question.content}"> 내용</div>
+
+<!-- 질문에 대한 답변글의 갯수 출력
+		lists.size()  : ThymeLeaf 에서 제공해주는 메소드 , List에 몇개의 객체가 저장
+ -->
+<h5 th:text="|${#lists.size(question.answerList)} 개의 답변글이 있습니다. |"> </h5>
+
+<div> 
+	<ul>
+		<li th:each="answer: ${question.answerList}" th:text="${answer.content}"></li>
+	</ul>
+</div>
+
+<!-- 
+	Thymeleaf 에서 링크 : @{ }
+	Thymeleaf 에서 Model 객체의 변수값 받기 : ${변수명}
+	Thymeleaf 에서 String + 변수  :  | String 변수 |
+	
+	http://localhost:9292/answer/create/1
+ -->
+<form th:action = "@{|/answer/create/${question.id}|}" method = "post"> 
+
+<textarea rows="15" id="content" name="content"></textarea>
+<input type="submit" value="답변등록"> 
+</form>
+
+
+
+</body>
+</html>
