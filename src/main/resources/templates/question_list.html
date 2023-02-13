@@ -1,18 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<h1> 질문 테이블의 리스트를 출력하는 View 페이지 입니다. </h1>
-	<hr> 
-	<table>
+
+<html layout:decorate="~{layout}">
+
+
+<div layout:fragment="content" class="container my-3">
+	<table class ="table">
+		<thead class = "table-dark">	<!--  제목을 처리  -->
 		<tr>
-			<th> 제목 </th>
-			
+			<th> 번호 </th>
+			<th> 제목 </th>			
 			<th> 작성일시 </th>
 		 </tr>
+		 </thead>
+		 
+		 <tbody>	<!--  테이블의 내용를 출력 블락  -->
 		 
 		 <!--  타임리프(Thymeleaf) 를 사용해서 루프 돌려서 출력 	 
 		 <tr th:each="question : ${questionList}"> 
@@ -26,14 +26,22 @@
 		<!-- Thymeleaf 에서 링크를 처리 : @{ } -->
 		<!-- | String + 변수 |  : 문자열과 변수를 연결 -->
 		
-		<tr th:each="question : ${questionList}"> 
+		<tr th:each="question, loop : ${questionList}"> 
+		
+			<td th:text="${loop.count}"> 번호  </td>
 		 	<td> <a th:href="@{|/question/detail/${question.id}|}"> [[${question.subject}]] </a> </td>
 		 	
-		 	<td> [[${question.createDate}]] </td>
+		 	<td> [[ ${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}]] </td>
 		 </tr>
 		
-		
+		</tbody>
 	 </table>
+	 
+	 <!-- 새글 등록 버튼    -->
+	 <a th:href="@{/question/create}" class="btn btn-primary"> 질문 등록하기 </a>
+	 
+	 
+	 </div>
 	
-</body>
+
 </html>

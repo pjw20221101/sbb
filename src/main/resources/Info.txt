@@ -135,6 +135,10 @@ Transaction (트랜잭션) : 일(작업) 을 처리하는 최소단위
    sbb2프로잭트 폴더 압축 : 조명_이름.zip 
    업로드 URL : https://url.kr/u86s1c
  
+ 
+ 
+ 
+ 
  ==============================================
  Service 클래스 : 비즈니스 로직을 처리함. 
      - 규모가 큰 사이트에서 비즈로직을 간략하게 처리 할 수 있다. 
@@ -143,6 +147,11 @@ Transaction (트랜잭션) : 일(작업) 을 처리하는 최소단위
    
  Client ==> Controller ==> Service (비즈니스 로직처리, dto, DAO )  ==> DAO => DB 
  
+ 
+ 
+ 
+
+
  
  2월 10일 
  <실습> sbb2 	    :   <Controller>   <Service>   <Repository> 
@@ -169,6 +178,37 @@ Transaction (트랜잭션) : 일(작업) 을 처리하는 최소단위
  
    sbb2프로잭트 폴더 압축 : 조명_이름.zip 
    업로드 URL : https://url.kr/u86s1c  
+ 
+ 
+ 
+ // Spring Framework를 사용한 폼 태그 내의 유효성 검사 
+ 
+ 1. 라이브러리 등록 : 
+     build.gradle 에 등록 
+     	    //Spring 에서 제공해주는 유효성 검사 라이브러리 : form에서 빈값이나 글자수 제한 
+    		implementation 'org.springframework.boot:spring-boot-starter-validation'
+ 
+ 2. 유효성 검사 클래스를 생성 ( QuestionForm.java ) , @NotEmpty (message="오류메세지") 
+ 	@Getter 
+ 	@Setter 
+ 	
+ 	유효성 검사 필드 : subject, content 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  
  
