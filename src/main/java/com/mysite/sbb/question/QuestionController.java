@@ -3,6 +3,7 @@ package com.mysite.sbb.question;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,22 +46,46 @@ public class QuestionController {
 	//private final QuestionRepository questionrepository; 
 	private final QuestionService questionService; 
 	
-	@GetMapping("/question/list")	//http://localhost:9292/question/list
-	@PostMapping("/question/list")  // Form 태그의 method=post action ="/question/list"
+//	@GetMapping("/question/list")	//http://localhost:9292/question/list
+//	@PostMapping("/question/list")  // Form 태그의 method=post action ="/question/list"
 	//@ResponseBody			//요청을 요청한 브라우저에 출력 
-	public String list(Model model) {
+//	public String list(Model model) {
 		//1. 클라이언트 요청 정보 :   http://localhost:9292/question/list
 		
 		//2. 비즈니스 로직을 처리 
-		List<Question> questionList = 
+//		List<Question> questionList = 
 				//this.questionrepository.findAll(); 
-				this.questionService.getList(); 
+//				this.questionService.getList(); 
 		//3. 뷰(view) 페이지로 전송
 			//Model : 뷰페이지로 서버의 데이터를 담아서 전송 객체 ( Session, Application ) 
-		model.addAttribute("questionList", questionList);
+//		model.addAttribute("questionList", questionList);
+		
+//		return "question_list"; 
+//	}
+	
+	// 2월 14일 페이징 처리 를 위해 수정됨 
+	// http://localhost:9292/question/list/?page=0
+	@GetMapping("/question/list")
+	public String list(Model model, @RequestParam (value="page", defaultValue="0") int page ) {
+	
+		
+		
+		
+		
+		// 비즈니스 로직 처리 : 
+		Page<Question> paging = 
+			this.questionService.getList(page); 
+		
+		//model 객체에 결과로 받은 paging 객체를 client 로 전송 
+		model.addAttribute("paging", paging); 
 		
 		return "question_list"; 
 	}
+	
+	
+	
+	
+	
 	
 	// 상세 페이지를 처리하는 메소드 : /question/detail/1
 	@GetMapping(value = "/question/detail/{id}")

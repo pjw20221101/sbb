@@ -38,10 +38,16 @@
 	<!-- 답변 작성 -->
 	<form th:action="@{|/answer/create/${question.id}|}"  th:object="${answerForm}" method="post"
 		class="my-3">
+		
+		<!-- 외부 파일에서 import  -->
+		<div th:replace="~{form_errors::formErrorsFragment}"></div>
+		
+		
+		<!--  내부 파일 
 		<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
 			<div th:each="err : ${#fields.allErrors()}" th:text="${err}"> </div>
 		</div>
-		
+		-->
 		<textarea name="content" th:field="*{content}" id="content" rows="10" class="form-control"></textarea>
 		<input type="submit" value="답변등록" class="btn btn-primary my-2">
 	</form>

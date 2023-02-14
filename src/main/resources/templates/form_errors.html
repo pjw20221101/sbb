@@ -1,0 +1,5 @@
+		
+<!-- 모든 view 페이지에서 유효성 체크시 공통으로 적용되는 부분 -->
+<div th:fragment="formErrorsFragment" class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+	<div th:each="err : ${#fields.allErrors()}" th:text="${err}"> </div>
+</div>

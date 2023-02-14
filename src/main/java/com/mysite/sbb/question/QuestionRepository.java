@@ -2,6 +2,9 @@ package com.mysite.sbb.question;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
@@ -52,6 +55,14 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	//Update : save() 
 	
 	//Delete : delete()
+	
+	//페이징을 처리하기 위한 메서드 생성 
+	// select * from question : Pageable 변수에 : page, 레코드수를 넣어주면(10) 
+	// JPA 에서 페이지 번호는 0 부터 시작 
+	// 출력할 레코드수를 JPA에 알려주면 내부에서 JPA가 전체 레코드(1000) / 10 = 100페이가 나온다. 
+	Page<Question> findAll(Pageable pageable); 
+	
+	
 	
 	
 }

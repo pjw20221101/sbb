@@ -7,10 +7,10 @@
 
 	<form th:action="@{/question/create}" th:object="${questionForm}" method="post"> 
 		<!--  오류 메세지 출력 부분  -->
-		<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-			<div th:each="err : ${#fields.allErrors()}" th:text="${err}"> </div>		
-		</div>
-	
+		
+		<!-- 외부 파일에서 import  -->
+		<div th:replace="~{form_errors::formErrorsFragment}"></div>
+		
 	
 		<div class="mb-3">
 			<label for="subject" class="form-label"> 제목 </label>

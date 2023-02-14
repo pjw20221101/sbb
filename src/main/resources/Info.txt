@@ -196,10 +196,49 @@ Transaction (트랜잭션) : 일(작업) 을 처리하는 최소단위
  
  
  
+ 부트스트랩 - FrontEnd 를 쉽게 사용할 수 있도록 , CSS, JS를 제공함. 
+	-- FrontEnd 디자인을 잘몰라도 css의 ID , Class호출 만으로 쉽게 깔끔한 사이트를 만들 수 있음. 
+	-- 반응형이 기본적으로 구현되어 있음. 
+https://getbootstrap.com/docs/5.2/getting-started/download/
  
  
  
+ STS에서 포트가 충돌나서 실행이 안되는 경우 
+ 1. 관리자 권한의 명령프롬프트로 실행 
+ 2. netstat -nao      : 열려있는 포트의 PID 확인 ( PID : 프로세스(메모리의 로드된 프로그램)의 고유번호 ) 
+ 3. taskkill /f /pid 14420 
  
+ 
+ 페이징 처리 : 스프링에서는 JPA에서 제공해주는 객체를 사용 
+   - 스프링에서는 페이징을 처리하기 위한 별도의 라이브러리가 필요없다. 
+   - 기본적으로 JPA 페이징 처리를 위한 객체가 존재한다. 
+   - Page 
+   - PageRequest
+   - Pageable 
+   
+   
+   
+   
+   
+ 2월 14일 실습 
+ 
+  <실습> sbb2 	    :   <Controller>   <Service>   <Repository> 
+  테이블명 : users							<== user 는 예약어 
+      idx   primary key, 자동증가(1,1) 
+      name  varchar(100) 
+      pass  varchar(100) 
+      email varchar(200) 
+      regdate LoacalDateTime 
+      cnt	int 
+      
+      1. 부트스트랩 import 
+      2. layout.html <== 공통으로 적용되는 부분을 뽑아내서 처리, list.html , detail.html, input.html 
+      3. 상단의 NavBar 를 생성 , 부트스트랩의 자바스크립트 처리 
+      4. list.html 에 페이징 처리(10개 레코드) , 날짜를 기준으로 desc, 번호를 처리 출력 
+      5. 유효성 체크 : name , pass, emial 에 갑을 넣지 않을 경우 오류메세지 출력, 값을 모두 넣었을때 등록 
+       
+   sbb2프로잭트 폴더 압축 : 조명_이름.zip 
+   업로드 URL : https://url.kr/u86s1c 
  
  
  
