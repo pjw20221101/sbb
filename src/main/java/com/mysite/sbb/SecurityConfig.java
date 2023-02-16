@@ -43,14 +43,14 @@ public class SecurityConfig {
             .and()
                 .formLogin()
                 .loginPage("/user/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/")			//로그인 성공시 세션에 로그인 정보를 담고 / 페이지로이동
                 
             // Spring Security 로그아웃 처리부분     
             .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
                 .logoutSuccessUrl("/")
-                .invalidateHttpSession(true)
+                .invalidateHttpSession(true)    //세션의 담긴 모든 값을 삭제하라
                 
         		;
         	

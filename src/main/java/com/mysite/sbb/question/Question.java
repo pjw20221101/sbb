@@ -50,7 +50,7 @@ public class Question {
 	
 	//2월 16일 Entity 컬럼 추가 , 글작성자 , 
 	//여러개의 질문이 한 명의 사용자에게 작성될 수 있으므로 @ManyToOne 관계가 성립한다.
-	@ManyToOne
+	@ManyToOne     // Foreign Key : site_user 테이블의 Primary key 참조 
     private SiteUser author;
 	
 	private LocalDateTime modifyDate;

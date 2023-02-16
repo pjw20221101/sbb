@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,9 @@ public class AnswerController {
 	
 	
 	//http://localhost:9292/answer/create/1 요청에 대한 답변글 등록 처리 
+	
+	//SecurityConfig.java 에서 @EnableMethodSecurity(prePostEnabled = true) 클래스 위에 
+	// 부여되어 있을때 작동됨 
 	@PreAuthorize("isAuthenticated()")		//로그인시에만 접근
 	@PostMapping("/create/{id}")
 	public String createAnswer(
