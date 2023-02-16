@@ -48,4 +48,14 @@ public class UserController {
 
         return "redirect:/";
     }
+    
+    
+    //2월 16일 로그인 요청에 대한 login_form.html 뷰 페이지 전송 
+    @GetMapping("/login")
+    public String login() {
+        return "login_form";
+    }
+    
+    
+    
 }

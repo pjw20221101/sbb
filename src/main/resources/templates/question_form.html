@@ -5,9 +5,22 @@
 		질문등록
 	</h5>
 
+<!-- 2월 16일 form 태그의 action 부분 생략 : 생략시 action 의 값이 url의 요청으로 넘어감 , 
+	action = "/question/create"			<== 글 생성 
+	action = "/question/modify/2"		<== 글 수정 
+	위 두 항목을 한꺼번에 처리함. 
+	
 	<form th:action="@{/question/create}" th:object="${questionForm}" method="post"> 
-		<!--  오류 메세지 출력 부분  -->
-		
+	
+	-->
+	
+	<!--  action 이 생략되면 csrf 설정값을 hidden으로 명시적으로 넣어 주어야 함.  -->
+	
+    <form th:object="${questionForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />	
+	
+	
+		<!--  오류 메세지 출력 부분  -->		
 		<!-- 외부 파일에서 import  -->
 		<div th:replace="~{form_errors::formErrorsFragment}"></div>
 		

@@ -4,15 +4,16 @@ import java.time.LocalDateTime;   //자신의 시스템의 로케일의 시간�
 import java.util.List;
 
 import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.user.SiteUser;
 
-import jakarta.persistence.CascadeType; 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 //persistence : JPA에서 사용된 어노테이션 
 import jakarta.persistence.Entity;   //JPA 에서 적용된 어노테이션 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,5 +47,12 @@ public class Question {
 	private List<Answer> answerList; 
 	
 		//question.getAnswerList() ; 
+	
+	//2월 16일 Entity 컬럼 추가 , 글작성자 , 
+	//여러개의 질문이 한 명의 사용자에게 작성될 수 있으므로 @ManyToOne 관계가 성립한다.
+	@ManyToOne
+    private SiteUser author;
+	
+	private LocalDateTime modifyDate;
 		
 }

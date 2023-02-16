@@ -8,12 +8,47 @@
 			<div class="card-text" style="white-space: pre-line;"
 				th:text="${question.content}"></div>
 			<div class="d-flex justify-content-end">
+				
+				<!-- 2월 16일 : 수정 날짜 추가 -->
+				<div th:if="${question.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
+	                <div class="mb-2">modified at</div>
+	                <div th:text="${#temporals.format(question.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+	            </div>
+			
+			
 				<div class="badge bg-light text-dark p-2 text-start">
+				
+				<!-- 2월 16일 부분 수정 : 작성자 추가 -->
+					<div class="mb-2">
+                   		 <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
+                	</div>
+				
+				
 					<div
 						th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}
 "></div>
 				</div>
 			</div>
+			
+			<!--  2월 16일 수정 버튼 항목 추가됨 , question.author 가 null이 아니거나 
+			principal에 username 과 question 객체의 username 같을 경우만 수정 버튼을 출력함. 
+			#authentication.getPrincipal()은 Principal 객체를 리턴하는 타임리프의 유틸리티이다.
+			 -->
+			<div class="my-3">
+            	<a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
+                sec:authorize="isAuthenticated()"
+                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+                th:text="수정"></a>   
+                
+                <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
+                class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
+                th:text="삭제"></a>
+                            
+        	</div>
+        	
+        	
+			
 		</div>
 	</div>
 	<!-- 답변의 갯수 표시 -->
@@ -26,12 +61,42 @@
 			<div class="card-text" style="white-space: pre-line;"
 				th:text="${answer.content}"></div>
 			<div class="d-flex justify-content-end">
+			
+				<!--  2월 16일   답변날짜 추가  -->
+				<div th:if="${answer.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
+               	 	<div class="mb-2">modified at</div>
+                	<div th:text="${#temporals.format(answer.modifyDate, 'yyyy-MM-dd HH:mm')}"></div>
+            	</div>
+			
+			
 				<div class="badge bg-light text-dark p-2 text-start">
+				
+					<!-- 2월 16일 추가 : 작성자 -->
+					<div class="mb-2">
+                    	<span th:if="${answer.author != null}" th:text="${answer.author.username}"></span>
+                	</div>
+               		 
+               		 
 					<div
 						th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}">
 					</div>
 				</div>
 			</div>
+			
+			<!--  답변의 수정 / 삭제 버튼  -->
+			<div class="my-3">
+            	<a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
+                	sec:authorize="isAuthenticated()"
+                	th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+                	th:text="수정"></a>
+                	
+             	<a href="javascript:void(0);" th:data-uri="@{|/answer/delete/${answer.id}|}"
+                class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+                th:text="삭제"></a>
+                
+        	</div>
+						
 		</div>
 	</div>
 	<!-- 답변 반복 끝 -->
@@ -48,9 +113,33 @@
 			<div th:each="err : ${#fields.allErrors()}" th:text="${err}"> </div>
 		</div>
 		-->
+		<!-- 2월 16일 수정 : Spring Security 중 답변글 작성시 login 페이지로 이동후 글 사라지는 문제 처리 
 		<textarea name="content" th:field="*{content}" id="content" rows="10" class="form-control"></textarea>
+		 -->
+		 
+		 <!-- 2월 16일 답변글 작성시 login후 답변글이 남아 있도록 설정 , logout 시 답변글을 못 사용하도록 설정 -->
+		<textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="10"> </textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="10"></textarea>
+		
 		<input type="submit" value="답변등록" class="btn btn-primary my-2">
 	</form>
 </div>
+
+
+<!-- 2월 16일 JavaScript 추가 블락 -->
+
+<script layout:fragment="script" type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+
+
+
 
 </html>
