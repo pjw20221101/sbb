@@ -5,8 +5,15 @@
 	<h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
 	<div class="card my-3">
 		<div class="card-body">
+		
+		<!-- 2월 17일 : 질문 기능에 마커 기능 추가 -->
+		<div class="card-text" th:utext="${@commonUtil.markdown(question.content)}"></div>
+		
+			<!-- 마커 기능 사용으로 주석 처리됨 
 			<div class="card-text" style="white-space: pre-line;"
 				th:text="${question.content}"></div>
+			-->	
+				
 			<div class="d-flex justify-content-end">
 				
 				<!-- 2월 16일 : 수정 날짜 추가 -->
@@ -21,6 +28,7 @@
 				<!-- 2월 16일 부분 수정 : 작성자 추가 -->
 					<div class="mb-2">
                    		 <span th:if="${question.author != null}" th:text="${question.author.username}"></span>
+                		 <span th:if="${question.author != null}" th:text="${question.author.email}"></span>
                 	</div>
 				
 				
@@ -35,6 +43,13 @@
 			#authentication.getPrincipal()은 Principal 객체를 리턴하는 타임리프의 유틸리티이다.
 			 -->
 			<div class="my-3">
+				<!-- 2월 17일 : 추천 버튼 추가 -->
+				<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                	th:data-uri="@{|/question/vote/${question.id}|}">
+                	추천
+                	<span class="badge rounded-pill bg-success" th:text="${#lists.size(question.voter)}"></span>
+            	</a>
+			
             	<a th:href="@{|/question/modify/${question.id}|}" class="btn btn-sm btn-outline-secondary"
                 sec:authorize="isAuthenticated()"
                 th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
@@ -57,9 +72,20 @@
 		th:text="|${#lists.size(question.answerList)}개의 답변이 있습니다.|"></h5>
 	<!-- 답변 반복 시작 -->
 	<div class="card my-3" th:each="answer : ${question.answerList}">
+	
+		<!-- 2월 17일 : 앵커 기능 추가됨 : 답변이 루프 돌아갈때 그 위치에 유지됨 -->
+		<a th:id="|answer_${answer.id}|"></a>
+	
 		<div class="card-body">
+		
+			<!-- 2월 17일 답변에 마커기능 추가됨  -->
+			<div class="card-text" th:utext="${@commonUtil.markdown(answer.content)}"></div>
+		
+			<!-- 마커 기능으로 주석 처리됨  
 			<div class="card-text" style="white-space: pre-line;"
 				th:text="${answer.content}"></div>
+			-->
+			
 			<div class="d-flex justify-content-end">
 			
 				<!--  2월 16일   답변날짜 추가  -->
@@ -85,6 +111,13 @@
 			
 			<!--  답변의 수정 / 삭제 버튼  -->
 			<div class="my-3">
+				<!-- 2월 17일 : 답변의 추천 기능 추가  -->
+				<a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
+                	th:data-uri="@{|/answer/vote/${answer.id}|}">
+                	추천
+                	<span class="badge rounded-pill bg-success" th:text="${#lists.size(answer.voter)}"></span>
+            	</a>
+			
             	<a th:href="@{|/answer/modify/${answer.id}|}" class="btn btn-sm btn-outline-secondary"
                 	sec:authorize="isAuthenticated()"
                 	th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
@@ -137,6 +170,19 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+
+
+const recommend_elements = document.getElementsByClassName("recommend");
+Array.from(recommend_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+
+
 </script>
 
 

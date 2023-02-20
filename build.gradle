@@ -39,7 +39,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
 	
-	
+	//마크다운 라이브러리 설치 (2월 17일)
+	implementation 'org.commonmark:commonmark:0.21.0'
 	
 	
 	
@@ -47,7 +48,8 @@ dependencies {
 	
 	
 	//oracle 라이브러리 
-	implementation 'com.oracle.database.jdbc:ojdbc8'
+	//implementation 'com.oracle.database.jdbc:ojdbc10'
+	implementation 'com.oracle.database.jdbc:ojdbc11'
 	
 	//JDBC
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'

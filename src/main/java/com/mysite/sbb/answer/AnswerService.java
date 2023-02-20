@@ -18,7 +18,9 @@ public class AnswerService {
 	private final AnswerRepository answerRepository; 
 
 	//답변글을 저장하는 메소드 , Controller 에서 Question 생성해서 아규먼트로 인풋 
-	public void create(Question question, String content, SiteUser author) {
+	//2월 17일 앵커 기능 추가, 리턴 answer
+//	public void create(Question question, String content, SiteUser author) {
+	public Answer create(Question question, String content, SiteUser author) {	
 		
 		//Answer 객체를 생성후 아규면트로 넘어오는 값을 setter 주입 
 		Answer answer = new Answer(); 
@@ -29,6 +31,7 @@ public class AnswerService {
 		
 		this.answerRepository.save(answer); 
 		
+		return answer; 
 	}
 	
 	
@@ -48,6 +51,9 @@ public class AnswerService {
     //답변수정 
     public void modify(Answer answer, String content) {
     	
+    	//
+    	System.out.println("기존의 답변을 수정함 ");
+    	
         answer.setContent(content);
         answer.setModifyDate(LocalDateTime.now());
         this.answerRepository.save(answer);
@@ -58,6 +64,12 @@ public class AnswerService {
     //답변 삭제 
     public void delete(Answer answer) {
         this.answerRepository.delete(answer);
+    }
+    
+    //2월 17일 : 답변의 추천기능 추가 
+    public void vote(Answer answer, SiteUser siteUser) {
+        answer.getVoter().add(siteUser);
+        this.answerRepository.save(answer);
     }
 	
 	

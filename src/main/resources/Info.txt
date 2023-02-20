@@ -272,12 +272,94 @@ https://getbootstrap.com/docs/5.2/getting-started/download/
  
  
  
+ 
+ 
+ 
+ 
+ 2월 17일 (금)
+ 3장 SBB 서비스 개발.pdf  ( 15:30분까지 )
+ 
+ Page 117 ~ 158 Page 
+ 3-11 추천
+ 3-12 앵커
+ 3-13 마크다운
+ 3-14 검색
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ /* 검색 기능 사용시 사용할 SQL 쿼리 예제 */
+ 
+ select
+    distinct q.id,
+    q.author_id,
+    q.content,
+    q.create_date,
+    q.modify_date,
+    q.subject 
+    
+from question q 
+	left outer join site_user u1 
+	on q.author_id=u1.id 
+	
+left outer join answer a 
+	on q.id=a.question_id 
+	
+left outer join site_user u2 
+	on a.author_id=u2.id 
+	
+where
+    q.subject like '%스프링%' 
+    or q.content like '%스프링%' 
+    or u1.username like '%스프링%' 
+    or a.content like '%스프링%' 
+    or u2.username like '%스프링%' 
+    
+  
+  ==================================================================================  
+ 검색 기능 : Join 
+ -- answer 테이블과 site_user 테이블을 Inner Join 에서 content 컬럼의 값이 '스프링' 이 적용된 
+select * from answer  a
+ join site_user s 
+    on a.author_id = s.id 
+where content like '%스프링%' 
 
- 
- 
- 
- 
- 
+
+-- 하나의 검색 변수 값으로 여러 테이블의 컬럼을 검색함. (JOIN) 
+
+select 
+    distinct q.id,  
+    q.author_id, 
+    q.content, 
+    q.subject, 
+    q.mody_date 
+    q.create_date 
+
+from question q 
+    left outer Join site_user u1 
+       on q.author_id = u1.id 
+   
+    left outer join answer a 
+       on q.id = a.question_id 
+    left outer join site_user u2
+       on a.author_id = u2.id 
+
+where 
+    q.subject like '%스프링%'
+    or q.content like '%스프링%'
+    or a.content like '%스프링%'
+    or u1.username like '%스프링%'	-- question author_id 
+    or u2.username like '%스프링%'	--  ansewer quthor_id 
  
  
  

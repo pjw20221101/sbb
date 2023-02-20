@@ -2,6 +2,15 @@
 
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">답변 수정</h5>
+    
+    <!--  form 에서 action이 빠져 있음. URL에서 URI를 action으로 처리해서  controller를 호출하게됨 
+    	CSRF : Spring Security 에서 form action 에 보안 인증키가 hidden으로 자동으로 들어감
+    	action 이빠져 있으면 직접 넣어서 처리 해야 한다. 
+    	
+    	action 을 생략해서 하나의 view 페이지에서 여러 URI정보를 만들어서 controller로 보낼 수 있다. 
+    
+     -->
+    
     <form th:object="${answerForm}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
