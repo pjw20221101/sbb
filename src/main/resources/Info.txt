@@ -362,7 +362,9 @@ where
     or u2.username like '%스프링%'	--  ansewer quthor_id 
  
  
- 
+ gitHub : readme.md    <== 마크다운 문법으로 작성 
+
+www.markdownguide.org/getting-started
  
  
  
