@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.mysite'
-version = '0.0.2-SNAPSHOT'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
@@ -42,17 +42,15 @@ dependencies {
 	//마크다운 라이브러리 설치 (2월 17일)
 	implementation 'org.commonmark:commonmark:0.21.0'
 	
-	
-	
-	
-	
-	
+
 	//oracle 라이브러리 
 	//implementation 'com.oracle.database.jdbc:ojdbc10'
 	implementation 'com.oracle.database.jdbc:ojdbc11'
 	
 	//JDBC
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	
+	
 }
 
 tasks.named('test') {

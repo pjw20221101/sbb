@@ -266,6 +266,165 @@ Client ====> Web (Ngingx) : 80  ====> WAS ( Tomcat) : 8080
 
 
 
+OS (Linux) 는 이름으로 식별하는 것이 아니라 고유번호로 식별(계정, 그룹, 프로세스)
+	이름 <==> 주민번호 
+
+PID : 프로세스에 할당되는 고유 번호 
+PPID : 부모프로세스의 고유 번호 
+UID : 계정에게 할당되는 고유 번호 
+GID : 그룹에게 부여되는 고유 번호 
+
+
+Oracle 21C XE 버젼    <== 최신 버젼, JDBC 연결 , jpa 연동 
+  JPA를 연동할 때는 19, 18, 12 
+  
+Oracle TCP 1521  : Oracle XE 21C 	<== 
+Oracle TCP 1521 : Oracle XE 18 		<== 포트 변경해서 설치 (JPA 연동시 필요)
+	WS2019 VM에 설치됨
+
+ // 시간 설정  
+ sudo date -s 2023/03/03 
+ date
+ 
+ // 인터넷의 time server 와 시간 동기화, 
+ sudo apt install rdate 
+ sudo rdate -s time.bora.net 
+ 
+ 
+ Loging 설정 레벨 
+ 1. trace ( 1단계 ) : 아주 상세한 정보의 로그를 남김니다. (debug 보다 많은 정보를 남김)
+ 2. debug ( 2단계 ) : 디버깅을 목적으로 사용 
+ 3. info ( 3단계 ) : 일반 정보를 출력 할때 사용 		<====== <<< 기본값 : default >>>
+ 4. warn ( 4단계 ) : 경고 정보를 출력 할때 사용 (작은 문제) 
+ 5. error ( 5단계 ) : 오류 정보를 출력 할때 사용 (큰 문제) 
+ 6. fatal ( 6단계 ) : 치명적인 오류를 출력 할때 사용됨 (Kernel 에서 발생되는 문제 ) 
+ 
+ 	trace  <  debug  <  info  < warn  < error  < fatal 
+ 	
+ 
+ http : client 와 Server 사이의 암호화를 지원하지 않고 통신 : TCP 80 
+ https : Client 와 Server 사이의 암호화 통신 : TCP 443 
+    - 반드시 도메인 이름을 사용해야 한다.  www.naver.com 
+    - 인증서를 웹서버에 설치해서 구성해야 한다. : 도메인 이름으로 매핑함. 
+        인증서 설치시 도메인 이름을 등록 한다.  
+        인증 기관에서 인증서를 구매해서 사용함. 
+        
+        무료인증서를 설치 테스트 환경에서 사용 : 
+        
+        ==========================================
+        1. 도메인 이름을 IP로 연결 (도메인 구매 후 DNS Server)
+        
+        C:\Windows\System32\drivers\etc\hosts     <== users 수정 권한 부여 
+        3.38.193.6	pjw.kr	www.pjw.kr
+        
+        2. 웹 서버에서 인증서를 설치 (무료 인증서 설치) 
+        sudo apt install certbot
+        sudo apt install python3-certbot-nginx
+        
+        3. 인증서 서버에서 인증서를 발급 받아야 한다. 
+        sudo certbot certonly --nginx
+        메일주소 : aaa@aaa.com
+        라이센스 동의 : y
+        라이센스 동의 : y
+        도메인 이름 : pjw.kr
+        
+        4. 도메인 구매후 라우트 53에서 DNS Server 구성 
+        	가비아, 도레지 ( www.doregi.com ) , 아이네임즈 , ... 
+   
+   인터닉 :www.internic.net    <= 전 세계의 도메인을 관리하는 단체 
+   
+   도메인 등록 : www.doregi.com
+   
+   DNS Server (114)  : 도메인 이름을 ===> IP Address       <== Route 53 (AWS DNS Server) 
+   				www.naver.com  ====> IP Adress 
+   				
+   				호스트이름 + 도메인이름   <== FQDN (전체 컴퓨터이름 ) 
+   				www.      naver.com    (웹서버)
+   				ftp.	  naver.com    (ftp 서버)
+   				smtp. 	  naver.com	   (메일 송신 서버)
+   				pop. 	  naver.com    (메일 수신 서버) 
+   				
+   ZONE (영역) : DNS DataBase   ( naver.com ) 
+     레코드(Record)  :  NS, SOA 		<--자동으로 생성됨 
+     A : 호스트 이름을 IP Address로 연결 (IPv4) 
+     AAAA : 호스트이름을 IP Address로 연결 (IPv6) 
+     CNAME : 호스트이름을 다른 호스트 이름으로 연결 
+     PTR   : IP Address를 호스트 이름으로 연결 
+     
+ 
+ //AWS에 Oracle DB를 도커 환경에 배포 
+ 
+ //도커 설치 
+ 
+ • // 기존의 도커 설치된 경우 도커 제거
+$ sudo apt-get remove docker docker-engine docker.io containerd runc
+• // 레파지토리 업데이트 , 요구 프로그램 설치
+$ sudo apt-get update
+$ sudo apt-get install \
+ca-certificates \
+curl \
+gnupg \
+lsb-release
+• // 도커 GPG 키 설치
+$ sudo mkdir -p /etc/apt/keyrings
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+• // 레포지토리 URL 등록
+$ echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+• //도커 엔진 설치
+$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+• // 도커 설치 확인
+$ docker version
+
+• // 계정 설정
+$ su – root
+$ usermod -aG docker ubuntu			//vi /etc/group 
+	//ubuntu 계정을 docker 그룹에 포함  
+	//현재 로그온한 계정이 docker 그룹에 포함되어 있어야 docker의 기능을 사용할 수 있는 권한을 가진다. 
+
+// 도커 컨테이너 삭제 
+docker ps -a       : docker 위에 작동중인 모든 컨테이너 를 출력 
+docker stop <container ID>	: 도커 컨테이너 중지 
+docker rm <container ID> 	: 컨테이너 제거 
+
+// 도커 이미지 삭제 
+docker images
+sudo docker rmi <container ID>
+
+
+sudo ufw disable	// 우분투 방화벽 제거 
+
+
+// 모든 도커 컨테이너 모든 도커 이미지 한번에 제거   
+     
+docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q) 
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+        
+        
+        
+        
+        
+        
+    
+ 
+ 	
+ 
+ 
+  
+
+
+
 
 
 

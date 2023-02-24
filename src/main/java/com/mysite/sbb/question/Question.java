@@ -34,7 +34,8 @@ public class Question {
 	@Column(length =200)		//200자까지 
 	private String subject; 
 	
-	@Column(columnDefinition = "TEXT")
+	// @Column(columnDefinition = "TEXT")
+	@Column(length = 4000)
 	private String content; 
 	
 	private LocalDateTime createDate; 	//create_date : 
