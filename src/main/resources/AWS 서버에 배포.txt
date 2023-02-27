@@ -391,7 +391,7 @@ docker rm <container ID> 	: 컨테이너 제거
 
 // 도커 이미지 삭제 
 docker images
-sudo docker rmi <container ID>
+sudo docker rmi <image ID>
 
 
 sudo ufw disable	// 우분투 방화벽 제거 
@@ -400,6 +400,80 @@ sudo ufw disable	// 우분투 방화벽 제거
 // 모든 도커 컨테이너 모든 도커 이미지 한번에 제거   
      
 docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q) 
+
+
+docker run -d -p 1521:1521 -e ORACLE_PASSWORD=1234 gvenzl/oracle-xe
+
+// docker run = docker pull ( 원격의 도커 허브에서 이미지 다운로드 ) 
+			+ docker build  ( 로컬의 다운된 도커이미지를 RAM에 올려줌 ) 
+ // -d   : 도커 컨테이너를 백그라운드 모드로 작동 시킴. 
+ // -p 1521:1521        -p : 포트 매핑  1521(호스트의 포트) : 1521 (컨테이너의 포트) 
+ // -e ORACLE_PASSWORD=1234    e: 환경 설정 , ORACLE_PASSWORD=<system 계정의 패스워드>
+ // gvenzl/oracle-xe   : 계정명/이미지명  , 이미지 이름뒤에 버젼이 명시 되지 않으면 최신 버전이 적용(latest)
+ 		//hub.docker.com   : 도커 이미지가 저장된 public 레파지토리 
+
+// 도커 컨테이너의 상세한 정보를 확인  : < 도커 의 문제가 발생 되었을때 > 
+docker ps -a 		// 도커 컨테이너 ID를 확인 할 수 있다. 	
+docker inspect 0426e8f10b99	  //docker inspect <컨테이너ID> 	
+
+//도커의 이미지가 저장된 디렉토리 
+
+/var/lib/docker/overlay2/
+
+
+IP Address ( Network ID + Host ID ) 
+	IPv4 : 8bit.8bit.8bit.8bit  : 32bit 
+		   옥텟 . 옥텟 . 옥텟. 옥텟
+		   255.255.255.255.255    <== 8비트로 표현 할 수 있는 제일 큰 주소 
+		   
+	: Network ID : 그 회사의 Network 를 뜻한다. ( 우편번호 ) 
+	: Host ID    : 그 회사의 Network 안의 각각의 시스템 ( 번지 ) 
+	
+CIDR 표기법 : IP/SM 	
+	172.31.10.42/24   	IP/Subnet Mask 가 1이 할당된 비트수 
+	
+	Network ID : 172.31.10.
+	Host ID    : 42 
+	
+	172.16.0.1/16    
+	Network ID ; 172.16
+	Host ID    : 0.1
+
+ip addr 
+	
+1. lo  		: 자신의 시스템을 가르키는 루프백 IP 
+2. eht0 	: 실제 Host 시스템의 LAN Card ,  (eth0 (AWS) , ens33 (Local VM) ) 
+3. docker0 	: Host에서 Docker 를 설치시 도커 컨테이너와 통신하고 컨테이너에게 할당돠는 ip 대역 
+
+
+BackEnd의 데이터 베이스 배포 
+1. IaaS : AWS EC2 에 VM을 생성후 docker 설치후 public 레지스트리에서 image 를 다운 받아 오라클 구현 
+2. Paas : AWS RDS 서비스 : DB만 생성해서 사용.   (VM 관리와 , Oracle 관리는 AWS) 
+
+ 
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	  
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
    
    
